@@ -1,0 +1,8 @@
+{
+  "name": "logistics-pm",
+  "version": "0.1.0",
+  "description": "Domain-specific PM plugin for freight forwarding and logistics. Adds freight workflow knowledge, logistics-tuned PRD generation, an eval framework for measuring AI output quality, and style matching from reference documents. Built to extend the generic product-management plugin with vertical expertise.",
+  "author": {
+    "name": "Vishal Baker"
+  }
+}
