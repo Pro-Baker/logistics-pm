@@ -82,11 +82,11 @@ logistics-pm/
 
 ## Built With
 
-- Real PRDs from a freight forwarding B2B application (credit limits, rate benchmarking)
+- Real knowledge from a freight forwarding B2B company and its application
 - Operational domain knowledge from hands-on product management in the forwarding industry
 - Eval framework principles from Anthropic's documentation on developing tests for AI systems
 - Prompt architecture patterns from open-source PM copilot research (pm-skills, knowledge-work-plugins)
 
 ## Author
 
-Vishal Baker -- Product Manager in B2B freight forwarding, building AI product tools.
+Vishal Prabhakar -- Product Manager in B2B freight forwarding, building AI product tools.
