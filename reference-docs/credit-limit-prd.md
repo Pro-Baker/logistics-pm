@@ -1,16 +1,16 @@
-# PRD: Client credit limit and QuickBooks integration
+# PRD: Client credit limit and accounting system integration
 
 ## Overview
-Improve the integration between our freight forwarding application and QuickBooks to enable holistic client credit management. This system will unify invoicing, payment tracking, credit/debit note handling, and credit limit evaluation into a single source of truth for customer financial health.
+Improve the integration between a freight forwarding application and its accounting system to enable holistic client credit management. This system will unify invoicing, payment tracking, credit/debit note handling, and credit limit evaluation into a single source of truth for customer financial health.
 
 ## Goals
 - Provide real-time visibility into each customer's credit position
-- Automate the sync of invoicing and payment data between our application and QuickBooks
+- Automate the sync of invoicing and payment data between the forwarding app and the accounting system
 - Enable credit limit assignment, enforcement, and revision workflows
-- Reduce manual reconciliation effort between our app and QuickBooks
+- Reduce manual reconciliation effort between the two systems
 
 ## Non-goals
-- Replacing QuickBooks as the system of record for accounting
+- Replacing the accounting system as the system of record for accounting
 - Automating credit limit decisions (this is a decision-support tool, not auto-approval)
 
 ---
@@ -22,12 +22,12 @@ Tracks the full lifecycle of each invoice and all adjustments made against it.
 ### Data points
 | Field | Description | Source |
 |-------|-------------|--------|
-| Invoice ID | Unique identifier synced from QuickBooks | QuickBooks |
-| Invoice value | Original billed amount | QuickBooks |
-| Payments applied | Payments received and matched against this invoice | QuickBooks |
-| Credit notes (invoice-level) | Credit memos applied/adjusted against this specific invoice | QuickBooks |
-| Debit notes (invoice-level) | Debit memos applied/adjusted against this specific invoice | QuickBooks |
-| Invoice revisions | Any amendments to the original invoice value or line items | QuickBooks / App |
+| Invoice ID | Unique identifier synced from accounting system | Accounting system |
+| Invoice value | Original billed amount | Accounting system |
+| Payments applied | Payments received and matched against this invoice | Accounting system |
+| Credit notes (invoice-level) | Credit memos applied/adjusted against this specific invoice | Accounting system |
+| Debit notes (invoice-level) | Debit memos applied/adjusted against this specific invoice | Accounting system |
+| Invoice revisions | Any amendments to the original invoice value or line items | Accounting system / App |
 
 ### Calculated fields
 - **Net invoice outstanding** = Invoice value - Payments applied - Credit notes adjusted + Debit notes adjusted (accounting for revisions)
@@ -46,13 +46,13 @@ Tracks credits, debits, and payments at the customer level that have NOT yet bee
 ### Data points
 | Field | Description | Source |
 |-------|-------------|--------|
-| Unadjusted advances/payments | Payments or deposits made by the customer not yet applied to an invoice | QuickBooks |
-| Customer-level credit notes | Credit memos issued to the customer not tied to a specific invoice | QuickBooks |
-| Customer-level debit notes | Debit memos issued to the customer not tied to a specific invoice | QuickBooks |
+| Unadjusted advances/payments | Payments or deposits made by the customer not yet applied to an invoice | Accounting system |
+| Customer-level credit notes | Credit memos issued to the customer not tied to a specific invoice | Accounting system |
+| Customer-level debit notes | Debit memos issued to the customer not tied to a specific invoice | Accounting system |
 
 ### Key considerations
-- In QuickBooks, credit memos can exist at the customer level without being associated to any invoice. These sit as open credits on the customer's account and can be applied to future invoices or refunded.
-- Unadjusted advances should be flagged for reconciliation — they represent customer funds we hold
+- Credit memos can exist at the customer level without being associated to any invoice. These sit as open credits on the customer's account and can be applied to future invoices or refunded.
+- Unadjusted advances should be flagged for reconciliation -- they represent customer funds the forwarder holds
 - The system should surface aging of unadjusted items (e.g., "Customer X has a $5,000 unapplied credit note from 45 days ago")
 
 ---
@@ -62,10 +62,10 @@ Tracks credits, debits, and payments at the customer level that have NOT yet bee
 Manages the documentation, assignment, and governance of credit limits for each client.
 
 ### Workflow
-1. **Documentation** — Collect required financial documents from the client (e.g., bank references, trade references, financial statements)
-2. **Credit limit assignment** — Based on evaluation, assign a credit limit amount to the customer
-3. **Validity period** — Each credit limit has an effective date and expiry date
-4. **Revision** — Credit limits can be revised (up or down) based on payment behavior, changed business conditions, or periodic review
+1. **Documentation** -- Collect required financial documents from the client (e.g., bank references, trade references, financial statements)
+2. **Credit limit assignment** -- Based on evaluation, assign a credit limit amount to the customer
+3. **Validity period** -- Each credit limit has an effective date and expiry date
+4. **Revision** -- Credit limits can be revised (up or down) based on payment behavior, changed business conditions, or periodic review
 
 ### Data points
 | Field | Description |
@@ -119,27 +119,27 @@ Available credit = Assigned credit limit - Customer credit exposure
 
 ---
 
-## Sync architecture (QuickBooks integration)
+## Sync architecture
 
 ### Direction of data flow
-- **QuickBooks → App**: Invoice data, payment records, credit/debit memos, customer balances
-- **App → QuickBooks**: (Future) Credit limit status, hold flags
+- **Accounting system -> App**: Invoice data, payment records, credit/debit memos, customer balances
+- **App -> Accounting system**: (Future) Credit limit status, hold flags
 
 ### Sync frequency
 - To be determined: real-time webhook vs. scheduled polling (recommend starting with scheduled polling every 15-30 minutes, with option to move to webhooks)
 
 ### Error handling
 - Failed syncs should be logged and retried
-- Data discrepancies between app and QuickBooks should surface in a reconciliation dashboard
+- Data discrepancies between app and accounting system should surface in a reconciliation dashboard
 
 ---
 
 ## Open questions
 - What approval workflow is needed for credit limit assignment and revision? (Single approver vs. multi-level?)
 - Should we block shipment bookings when over limit, or just warn? Is this configurable per customer?
-- What is the desired sync frequency with QuickBooks?
+- What is the desired sync frequency?
 - Are there existing credit policies or documentation templates we should incorporate?
-- How should we handle customers with multiple QuickBooks sub-entities?
+- How should we handle customers with multiple sub-entities in the accounting system?
 
 ---
 
@@ -147,6 +147,4 @@ Available credit = Assigned credit limit - Customer credit exposure
 - Reduction in time spent on manual credit checks before booking
 - Reduction in overdue receivables from customers exceeding their credit limit
 - Percentage of customers with active, non-expired credit limits
-- Sync reliability (% successful syncs with QuickBooks)
-
-link to view for formatting style and actual Google document - https://docs.google.com/document/d/1W3NVapRu6lVhc6o299bcbx1wE3LBaJY9W9Mukw_-rNw/edit?tab=t.0
+- Sync reliability (% successful syncs)
