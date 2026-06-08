@@ -159,13 +159,6 @@ Customer credit exposure =
 Available credit = Assigned credit limit - Customer credit exposure
 ```
 
-**Credit limit statuses:**
-| Status | Condition | Business action |
-|--------|-----------|-----------------|
-| Within limit | Available credit > 0 | Normal operations |
-| Near limit | Available credit < 10% of assigned limit | Alert account manager and finance |
-| Over limit | Available credit < 0 | Flag/block new bookings (configurable) |
-| Expired | Credit limit past expiry date | Treat as zero limit until renewed |
 
 **Accounting system sync:** Most forwarders sync invoicing and payment data with QuickBooks, Xero, or SAP. Key architectural decisions:
 - Direction: QuickBooks is typically the source of truth for payments; the forwarding app is the source of truth for shipment-linked charges
