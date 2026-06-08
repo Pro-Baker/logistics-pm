@@ -53,7 +53,7 @@ The forwarder's margin is the spread between the **buy rate** (what they pay the
 - **Spot rate** -- One-time rate for a single shipment. Higher price, no commitment.
 - **Contract rate** -- Negotiated for a defined period and volume commitment. Lower price, guaranteed capacity.
 
-**Market intelligence:** Tools like Xeneta provide independent benchmarking data (market low, average, high) across 170K+ port pairs. A forwarder can validate whether their proposed rate is competitive before sending it to the client. This benchmark step must add no more than 2-3 seconds to the quoting workflow.
+**Market intelligence:** Tools like Xeneta and FreightOS provide independent benchmarking data (market low, average, high) across 170K+ port pairs. A forwarder can validate whether their proposed rate is competitive before sending it to the client. This benchmark step must add no more than 2-3 seconds to the quoting workflow.
 
 Once the client accepts the quote, the forwarder secures a booking with the ocean, air, or rail carrier.
 
