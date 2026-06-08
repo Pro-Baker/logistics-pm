@@ -89,4 +89,4 @@ logistics-pm/
 
 ## Author
 
-Vishal Prabhakar -- Product Manager in B2B freight forwarding, building AI product tools.
+Vishal Prabhakar -- Senior Product Manager in B2B freight forwarding, building AI product tools.
