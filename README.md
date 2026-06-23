@@ -5,7 +5,7 @@ A domain-specific product management plugin for freight forwarding and logistics
 ## The Problem
 
 Generic PM copilots produce reasonable output for standard SaaS features. They fall apart on logistics:
-- They don't understand that an RFQ response has a 2-3 second latency budget, or that quoting involves buy rates, sell rates, and surcharge stacking (BAF, CAF, THC, ETS, PSS)
+- They don't understand that an RFQ response going out sooner than later means higher chances of acceptance, or that quoting involves buy rates, sell rates, and surcharge stacking (BAF, CAF, THC, ETS, PSS)
 - They don't know that a missing ISF filing is a $5,000+ fine, or that demurrage charges accrue daily when cargo sits at port
 - They produce specs that skip integration architecture (sync direction, source of truth, failure handling), leaving engineers to guess
 - They have no mechanism to evaluate whether their output is operationally accurate or just plausible-sounding
